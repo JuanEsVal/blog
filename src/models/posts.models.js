@@ -1,5 +1,8 @@
 const db = require('../utils/database')
 const { DataTypes } = require('sequelize')
+const Users = require('./users.models')
+const Categories = require('./categories.models')
+
 
 const Posts = db.define('posts', {
     id: {
@@ -18,12 +21,20 @@ const Posts = db.define('posts', {
     createBy: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'create_by'
+        field: 'create_by',
+        references: {
+            key: 'id',
+            model: Users
+        }
     },
     categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: 'category_id'
+        field: 'category_id',
+        references: {
+            key: 'id',
+            model: Categories
+        }
     }
 })
 

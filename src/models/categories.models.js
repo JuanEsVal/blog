@@ -12,6 +12,6 @@ const Categories = db.define('categories', {
         type: DataTypes.STRING,
         allowNull: false    
     }
-})
+}, { timestamps: false } )   //Aqui no se agrega las columnas createDate ni updateDate
 
 module.exports = Categories
