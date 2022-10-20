@@ -5,21 +5,21 @@ const Users = require('../models/users.models')
 const Categories = require('../models/categories.models')
 
 const getAllPosts = async() => {
-    const data = await Posts.findAll({
+    const data = await Posts.findAll({  
+        //  Aca escribo los Joins:
         include:[
             {
-                model: Users
+                model: Users    // Tabla Users
             },
             {
-                model: Categories,
+                model: Categories,      // Tabla categories
                 attributes: {
-                    
                     exclude: ['id']
                 }
             }
         ],
         attributes: {
-            exclude: ['createdAt', 'updatedAt', 'categoryId']
+            exclude: [ 'id', 'createdBy', 'createdAt', 'updatedAt', 'categoryId']
         }
     })
     return data
