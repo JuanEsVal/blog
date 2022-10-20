@@ -1,31 +1,31 @@
 const db = require('../utils/database')
-const { DataTypes } = require('sequelize')
+const {DataTypes} = require('sequelize')
 const Users = require('./users.models')
 const Categories = require('./categories.models')
-
 
 const Posts = db.define('posts', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        allowNull: false        
+        allowNull: false
     },
     title: {
-        type: DataTypes.STRING,
-        allowNull: false    
+        type: DataTypes.STRING, //varchar 
+        allowNull: false
     },
     content: {
         type: DataTypes.TEXT,
-        allowNull: false        
+        allowNull: false
     },
-    createBy: {
+    //? Llave foranea de Users
+    createdBy: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'create_by',
+        field: 'created_by',
         references: {
             key: 'id',
             model: Users
-        }
+        },
     },
     categoryId: {
         type: DataTypes.INTEGER,
@@ -38,4 +38,7 @@ const Posts = db.define('posts', {
     }
 })
 
+
 module.exports = Posts
+
+
