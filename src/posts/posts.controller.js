@@ -13,6 +13,7 @@ const getAllPosts = async() => {
             {
                 model: Categories,
                 attributes: {
+                    
                     exclude: ['id']
                 }
             }
