@@ -6,27 +6,58 @@ const Categories = require('../models/categories.models')
 
 const getAllPosts = async() => {
     const data = await Posts.findAll({  
-        //  Aca escribo los Joins:
+        //  Aca escribo los Joins:   
+
+        // Tabla Posts:
+        attributes: {
+            exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+        },
+
         include:[
             {
-                model: Users    // Tabla Users
+                model: Users,       //Tabla de Usuarios
+                as: 'user',
+                attributes:  [ 'id', 'firstName', 'lastName', 'email']                
             },
             {
                 model: Categories,      // Tabla categories
+                as: 'category',
                 attributes: {
                     exclude: ['id']
                 }
             }
-        ],
-        attributes: {
-            exclude: [ 'id', 'createdBy', 'createdAt', 'updatedAt', 'categoryId']
-        }
+        ]
     })
     return data
 }
 
-const getPostById = async(id) => {
 
+const getPostById = async(id) => {
+    const data = await Posts.findAll({  
+        //  Aca escribo los Joins:   
+        where: {
+            id
+        },
+        attributes: {
+            exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+        },
+
+        include:[
+            {
+                model: Users,       //Tabla de Usuarios
+                as: 'user',
+                attributes:  [ 'id', 'firstName', 'lastName', 'email']                
+            },
+            {
+                model: Categories,      // Tabla categories
+                as: 'category',
+                attributes: {
+                    exclude: ['id']
+                }
+            }
+        ]
+    })
+    return data
 }
 
 const createPost = async (data) => {
@@ -34,15 +65,28 @@ const createPost = async (data) => {
         id: uuid.v4(),
         title: data.title,
         content: data.content,
-        createdBy: data.userId, //? este es el user id que viene desde el token
+        userId: data.userId, //? este es el user id que viene desde el token
         categoryId: data.categoryId
     })
     return response
 }
 
+
+const getPostsByCategory = async (categoryId) => {
+
+    const data = await Posts.findAll({
+        where: {
+            categoryId
+        }
+    })
+    return data
+}
+
+
 module.exports = {
     getAllPosts,
     getPostById,
-    createPost
+    createPost,
+    getPostsByCategory
 }
 

@@ -10,6 +10,21 @@ const getAllPosts = (req, res) => {
         })
 }
 
+const getPostById = (req, res) => {
+    const id = req.params.id;
+  
+    postControllers.getPostById(id)
+      .then((data) => {
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          res.status(404).json({ message: "Invalid ID" });
+        }
+      })
+      .catch((err) => {
+        res.status(400).json({ message: err.message });
+      });
+  };
 
 const createPost = (req, res) => {
     //? Este es el id del usuario loggeado
@@ -33,14 +48,25 @@ const createPost = (req, res) => {
             }
         })
     }
-
 }
 
+const getPostsByCategory = (req, res) => {
 
-
+    const categoryId = req.params.id 
+    
+    postControllers.getPostsByCategory(categoryId)
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            res.status(400).json({message: err.message})
+        })
+}
 
 
 module.exports = {
     createPost,
-    getAllPosts
+    getPostById,
+    getAllPosts,
+    getPostsByCategory
 }

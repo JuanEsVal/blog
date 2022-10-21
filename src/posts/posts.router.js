@@ -12,7 +12,7 @@ router.route('/')
         postServices.createPost
     )
 
-
+// route.get('/:id', postServices.getPostsById)
 
 
 module.exports = router
