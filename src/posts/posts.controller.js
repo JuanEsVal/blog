@@ -8,8 +8,8 @@ const getAllPosts = async( offset, limit) => {
     const data = await Posts.findAll({  
 
         //Pagiinacion
-        offset: offset ? offset :0,
-        limit:  limit ? limit : 10,
+        offset: offset,
+        limit:  limit,
 
 
         //  Aca escribo los Joins:   
