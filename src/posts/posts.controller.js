@@ -4,10 +4,15 @@ const uuid = require('uuid')
 const Users = require('../models/users.models')
 const Categories = require('../models/categories.models')
 
-const getAllPosts = async() => {
+const getAllPosts = async( offset, limit) => {
     const data = await Posts.findAll({  
-        //  Aca escribo los Joins:   
 
+        //Pagiinacion
+        offset: offset ? offset :0,
+        limit:  limit ? limit : 10,
+
+
+        //  Aca escribo los Joins:   
         // Tabla Posts:
         attributes: {
             exclude: ['id', 'userId', 'createdAt', 'updatedAt']

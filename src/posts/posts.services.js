@@ -1,9 +1,24 @@
 const postControllers = require('./posts.controller')
 
 const getAllPosts = (req, res) => {
-    postControllers.getAllPosts()
+
+    //* PAGINACION
+    //? localhost:9000/api/v1/posts?offset=0&limit=10&name=juan$rkq=tio
+    //? localhost:9000/api/v1/posts?offset=0&limit=10
+    // const { offset, limit, name, rkq } = req.query
+
+    const { offset, limit } = req.query
+    //? offset: donde inicia
+    //? limit: donde termina
+
+
+    postControllers.getAllPosts( offset, limit)
         .then(data => {
-            res.status(200).json(data)
+            res.status(200).json({
+                offset,
+                limit,
+                results: data
+            })
         })
         .catch(err => {
             res.status(400).json({message: err.message})
