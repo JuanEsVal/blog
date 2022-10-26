@@ -5,7 +5,7 @@ const Users = require('../models/users.models')
 const Categories = require('../models/categories.models')
 
 const getAllPosts = async( offset, limit) => {
-    const data = await Posts.findAll({  
+    const data = await Posts.findAndCountAll({  
 
         //Pagiinacion
         offset: offset,
@@ -15,7 +15,7 @@ const getAllPosts = async( offset, limit) => {
         //  Aca escribo los Joins:   
         // Tabla Posts:
         attributes: {
-            exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+            exclude: ['userId', 'categoryId', 'createdAt', 'updatedAt']
         },
 
         include:[
